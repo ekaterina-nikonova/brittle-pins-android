@@ -2,6 +2,4 @@
     <string name="app_name">Brittle Pins</string>
     <string name="log_in_button_label">Log in</string>
     <string name="sign_up_button_label">Sign up</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
