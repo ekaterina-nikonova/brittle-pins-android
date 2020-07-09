@@ -10,6 +10,7 @@ import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.brittlepins.brittlepins.authentication.LogInFragment
 import com.brittlepins.brittlepins.start.StartFragment
 import org.hamcrest.CoreMatchers.equalTo
 import org.hamcrest.MatcherAssert.assertThat
@@ -22,7 +23,8 @@ class NavigationInstrumentedTest {
     @Test
     fun mainActivityRendersStartFragment() {
         ActivityScenario.launch(MainActivity::class.java)
-        onView(withParent(withId(R.id.main_container))).check(matches(withChild(withId(R.id.start_container))))
+        onView(withParent(withId(R.id.main_container)))
+            .check(matches(withChild(withId(R.id.start_container))))
     }
 
     @Test
@@ -37,5 +39,19 @@ class NavigationInstrumentedTest {
 
         onView(withId(R.id.start_to_log_in_button)).perform(ViewActions.click())
         assertThat(navController.currentDestination?.id, equalTo(R.id.logInFragment))
+    }
+
+    @Test
+    fun logInNavigatesToSignUpOnButtonClick() {
+        val navController = TestNavHostController(ApplicationProvider.getApplicationContext())
+        navController.setGraph(R.navigation.auth_navigation)
+
+        val scenario = launchFragmentInContainer<LogInFragment>()
+        scenario.onFragment {
+            Navigation.setViewNavController(it.requireView(), navController)
+        }
+
+        onView(withId(R.id.log_in_to_sign_up_button)).perform(ViewActions.click())
+        assertThat(navController.currentDestination?.id, equalTo(R.id.signUpFragment))
     }
 }
