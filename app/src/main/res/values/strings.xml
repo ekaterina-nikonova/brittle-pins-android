@@ -2,4 +2,8 @@
     <string name="app_name">Brittle Pins</string>
     <string name="log_in_button_label">Log in</string>
     <string name="sign_up_button_label">Sign up</string>
+    <string name="title_activity_main_nav">MainActivity</string>
+    <string name="title_projects">Projects</string>
+    <string name="title_boards">Boards</string>
+    <string name="title_components">Components</string>
 </resources>

@@ -21,8 +21,14 @@ class LogInFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         view.findViewById<Button>(R.id.log_in_to_sign_up_button).setOnClickListener {
             val action = LogInFragmentDirections.actionLogInFragmentToSignUpFragment()
+            it.findNavController().navigate(action)
+        }
+
+        view.findViewById<Button>(R.id.log_in_button).setOnClickListener {
+            val action = LogInFragmentDirections.actionLogInFragmentToMainNavActivity()
             it.findNavController().navigate(action)
         }
     }

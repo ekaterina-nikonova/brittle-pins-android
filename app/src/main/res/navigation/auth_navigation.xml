@@ -15,6 +15,9 @@
             app:destination="@id/signUpFragment"
             app:popUpTo="@id/auth_navigation"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_logInFragment_to_mainNavActivity"
+            app:destination="@id/mainNavActivity" />
     </fragment>
     <fragment
         android:id="@+id/signUpFragment"
@@ -27,4 +30,8 @@
             app:popUpTo="@id/auth_navigation"
             app:popUpToInclusive="true" />
     </fragment>
+    <activity
+        android:id="@+id/mainNavActivity"
+        android:name="com.brittlepins.brittlepins.main.MainNavActivity"
+        android:label="MainNavActivity" />
 </navigation>

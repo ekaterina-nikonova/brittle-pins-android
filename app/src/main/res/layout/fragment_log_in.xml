@@ -6,10 +6,24 @@
     android:id="@+id/log_in_container"
     tools:context=".authentication.LogInFragment">
 
-    <Button
-        android:id="@+id/log_in_to_sign_up_button"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/sign_up_button_label" />
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/log_in_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/colorPrimary"
+            android:text="@string/log_in_button_label" />
+
+        <Button
+            android:id="@+id/log_in_to_sign_up_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/sign_up_button_label" />
+    </LinearLayout>
+
 
 </FrameLayout>
