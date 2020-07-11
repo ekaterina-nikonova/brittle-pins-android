@@ -2,9 +2,7 @@ package com.brittlepins.brittlepins
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.testing.launchFragmentInContainer
-import androidx.lifecycle.ViewModelStore
 import androidx.navigation.NavController
-import androidx.navigation.NavHostController
 import androidx.navigation.Navigation
 import androidx.navigation.testing.TestNavHostController
 import androidx.test.core.app.ActivityScenario
@@ -23,7 +21,6 @@ import org.hamcrest.CoreMatchers.equalTo
 import org.hamcrest.MatcherAssert.assertThat
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.Mockito.*
 
 @RunWith(AndroidJUnit4::class)
 class NavigationInstrumentedTest {
@@ -38,7 +35,7 @@ class NavigationInstrumentedTest {
 
     @Test
     fun startFragmentNavigatesToAuthOnButtonClick() {
-        navController = setUpNavController(R.navigation.start_navigation, StartFragment::class.java)
+        navController = setUpNavController<StartFragment>(R.navigation.start_navigation)
 
         onView(withId(R.id.start_to_log_in_button)).perform(ViewActions.click())
         assertThat(navController.currentDestination?.id, equalTo(R.id.logInFragment))
@@ -46,7 +43,7 @@ class NavigationInstrumentedTest {
 
     @Test
     fun logInNavigatesToSignUpOnButtonClick() {
-        navController = setUpNavController(R.navigation.auth_navigation, LogInFragment::class.java)
+        navController = setUpNavController<LogInFragment>(R.navigation.auth_navigation)
 
         onView(withId(R.id.log_in_to_sign_up_button)).perform(ViewActions.click())
         assertThat(navController.currentDestination?.id, equalTo(R.id.signUpFragment))
@@ -54,7 +51,7 @@ class NavigationInstrumentedTest {
 
     @Test
     fun signUpNavigatesToLogInOnButtonClick() {
-        navController = setUpNavController(R.navigation.auth_navigation, SignUpFragment::class.java)
+        navController = setUpNavController<SignUpFragment>(R.navigation.auth_navigation)
         navController.navigate(R.id.signUpFragment)
 
         onView(withId(R.id.sign_up_to_log_in_button)).perform(ViewActions.click())
@@ -63,7 +60,7 @@ class NavigationInstrumentedTest {
 
     @Test
     fun navigationBetweenLogInAndSignUpPopsUpToTop() {
-        navController = setUpNavController(R.navigation.auth_navigation, LogInFragment::class.java)
+        navController = setUpNavController<LogInFragment>(R.navigation.auth_navigation)
 
         repeat(15) {
             navController.navigate(LogInFragmentDirections.actionLogInFragmentToSignUpFragment())
@@ -73,10 +70,9 @@ class NavigationInstrumentedTest {
         assertThat(navController.backStack.size, equalTo(2))
     }
 
-    private inline fun <reified T : Fragment> setUpNavController(graphId: Int, fragment: Class<T>)
+    private inline fun <reified T : Fragment> setUpNavController(graphId: Int)
             : TestNavHostController {
         val navController = TestNavHostController(ApplicationProvider.getApplicationContext())
-        navController.setViewModelStore(ViewModelStore())
         navController.setGraph(graphId)
 
         val scenario = launchFragmentInContainer<T>()
