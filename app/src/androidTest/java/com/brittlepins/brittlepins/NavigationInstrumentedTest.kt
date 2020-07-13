@@ -77,6 +77,15 @@ class NavigationInstrumentedTest {
         assertThat(navController.currentDestination?.id, equalTo(R.id.mainNavActivity))
     }
 
+    @Test
+    fun navigateFromSignUpToMain() {
+        navController = setUpNavController<SignUpFragment>(R.navigation.auth_navigation)
+        navController.navigate(LogInFragmentDirections.actionLogInFragmentToSignUpFragment())
+
+        onView(withId(R.id.sign_up_button)).perform(ViewActions.click())
+        assertThat(navController.currentDestination?.id, equalTo(R.id.mainNavActivity))
+    }
+
     private inline fun <reified T : Fragment> setUpNavController(graphId: Int)
             : TestNavHostController {
         val navController = TestNavHostController(ApplicationProvider.getApplicationContext())

@@ -29,6 +29,9 @@
             app:destination="@id/logInFragment"
             app:popUpTo="@id/auth_navigation"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_signUpFragment_to_mainNavActivity"
+            app:destination="@id/mainNavActivity" />
     </fragment>
     <activity
         android:id="@+id/mainNavActivity"
