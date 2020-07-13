@@ -6,4 +6,6 @@
     <string name="title_projects">Projects</string>
     <string name="title_boards">Boards</string>
     <string name="title_components">Components</string>
+    <string name="title_public">Public</string>
+    <string name="title_settings">Settings</string>
 </resources>

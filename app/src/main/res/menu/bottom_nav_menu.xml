@@ -16,4 +16,14 @@
         android:icon="@drawable/ic_component_dark"
         android:title="@string/title_components" />
 
+    <item
+        android:id="@+id/navigation_public"
+        android:icon="@drawable/ic_public_dark"
+        android:title="@string/title_public" />
+
+    <item
+        android:id="@+id/navigation_settings"
+        android:icon="@drawable/ic_settings_dark"
+        android:title="@string/title_settings" />
+
 </menu>

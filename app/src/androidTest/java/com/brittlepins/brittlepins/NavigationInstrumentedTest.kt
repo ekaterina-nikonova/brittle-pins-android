@@ -1,5 +1,6 @@
 package com.brittlepins.brittlepins
 
+import android.app.Activity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.testing.launchFragmentInContainer
 import androidx.navigation.NavController
@@ -16,8 +17,9 @@ import com.brittlepins.brittlepins.authentication.LogInFragment
 import com.brittlepins.brittlepins.authentication.LogInFragmentDirections
 import com.brittlepins.brittlepins.authentication.SignUpFragment
 import com.brittlepins.brittlepins.authentication.SignUpFragmentDirections
+import com.brittlepins.brittlepins.main.MainNavActivity
 import com.brittlepins.brittlepins.start.StartFragment
-import org.hamcrest.CoreMatchers.equalTo
+import org.hamcrest.CoreMatchers.*
 import org.hamcrest.MatcherAssert.assertThat
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -86,6 +88,22 @@ class NavigationInstrumentedTest {
         assertThat(navController.currentDestination?.id, equalTo(R.id.mainNavActivity))
     }
 
+    @Test
+    fun mainNavRendersProjectsOnLaunch() {
+        navController = setUpNavControllerWithActivity<MainNavActivity>(
+            R.navigation.main_navigation, R.id.main_nav_container)
+
+        assertThat(navController.currentDestination?.id, equalTo(R.id.navigation_projects))
+    }
+
+    @Test
+    fun mainNavNavigatesToBoards() {
+        ActivityScenario.launch(MainNavActivity::class.java)
+
+        onView(withId(R.id.navigation_boards)).perform(ViewActions.click())
+        onView(withId(R.id.nav_host_fragment_main)).check(matches(withChild(withId(R.id.boards_container))))
+    }
+
     private inline fun <reified T : Fragment> setUpNavController(graphId: Int)
             : TestNavHostController {
         val navController = TestNavHostController(ApplicationProvider.getApplicationContext())
@@ -94,6 +112,18 @@ class NavigationInstrumentedTest {
         val scenario = launchFragmentInContainer<T>()
         scenario.onFragment {
             Navigation.setViewNavController(it.requireView(), navController)
+        }
+        return navController
+    }
+
+    private inline fun <reified T : Activity> setUpNavControllerWithActivity(graphId: Int, viewId: Int)
+            : TestNavHostController {
+        val navController = TestNavHostController(ApplicationProvider.getApplicationContext())
+        navController.setGraph(graphId)
+
+        val scenario = ActivityScenario.launch(T::class.java)
+        scenario.onActivity {
+            Navigation.setViewNavController(it.findViewById(viewId), navController)
         }
         return navController
     }
