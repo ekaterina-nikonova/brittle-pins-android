@@ -123,6 +123,15 @@ class NavigationInstrumentedTest {
             .check(matches(withChild(withId(R.id.public_container))))
     }
 
+    @Test
+    fun mainNavNavigatesToSettings() {
+        ActivityScenario.launch(MainNavActivity::class.java)
+
+        onView(withId(R.id.navigation_settings)).perform(ViewActions.click())
+        onView(withId(R.id.nav_host_fragment_main))
+            .check(matches(withChild(withId(R.id.settings_container))))
+    }
+
     private inline fun <reified T : Fragment> setUpNavController(graphId: Int)
             : TestNavHostController {
         val navController = TestNavHostController(ApplicationProvider.getApplicationContext())

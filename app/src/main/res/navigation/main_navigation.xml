@@ -28,4 +28,10 @@
         android:name="com.brittlepins.brittlepins.main.ui.public.PublicFragment"
         android:label="@string/title_public"
         tools:layout="@layout/fragment_public" />
+
+    <fragment
+        android:id="@+id/navigation_settings"
+        android:name="com.brittlepins.brittlepins.main.ui.settings.SettingsFragment"
+        android:label="@string/title_settings"
+        tools:layout="@layout/fragment_settings" />
 </navigation>
