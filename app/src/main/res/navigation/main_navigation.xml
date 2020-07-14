@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_navigation"
+    app:startDestination="@+id/navigation_projects">
+
+    <fragment
+        android:id="@+id/navigation_projects"
+        android:name="com.brittlepins.brittlepins.main.ui.projects.ProjectsFragment"
+        android:label="@string/title_projects"
+        tools:layout="@layout/fragment_projects" />
+
+    <fragment
+        android:id="@+id/navigation_boards"
+        android:name="com.brittlepins.brittlepins.main.ui.boards.BoardsFragment"
+        android:label="@string/title_boards"
+        tools:layout="@layout/fragment_boards" />
+
+    <fragment
+        android:id="@+id/navigation_components"
+        android:name="com.brittlepins.brittlepins.main.ui.components.ComponentsFragment"
+        android:label="@string/title_components"
+        tools:layout="@layout/fragment_components" />
+
+    <fragment
+        android:id="@+id/navigation_public"
+        android:name="com.brittlepins.brittlepins.main.ui.public.PublicFragment"
+        android:label="@string/title_public"
+        tools:layout="@layout/fragment_public" />
+
+    <fragment
+        android:id="@+id/navigation_settings"
+        android:name="com.brittlepins.brittlepins.main.ui.settings.SettingsFragment"
+        android:label="@string/title_settings"
+        tools:layout="@layout/fragment_settings" />
+</navigation>
