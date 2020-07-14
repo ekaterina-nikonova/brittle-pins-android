@@ -101,7 +101,17 @@ class NavigationInstrumentedTest {
         ActivityScenario.launch(MainNavActivity::class.java)
 
         onView(withId(R.id.navigation_boards)).perform(ViewActions.click())
-        onView(withId(R.id.nav_host_fragment_main)).check(matches(withChild(withId(R.id.boards_container))))
+        onView(withId(R.id.nav_host_fragment_main))
+            .check(matches(withChild(withId(R.id.boards_container))))
+    }
+
+    @Test
+    fun mainNavNavigatesToComponents() {
+        ActivityScenario.launch(MainNavActivity::class.java)
+
+        onView(withId(R.id.navigation_components)).perform(ViewActions.click())
+        onView(withId(R.id.nav_host_fragment_main))
+            .check(matches(withChild(withId(R.id.components_container))))
     }
 
     private inline fun <reified T : Fragment> setUpNavController(graphId: Int)
