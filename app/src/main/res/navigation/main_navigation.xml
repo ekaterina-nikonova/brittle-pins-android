@@ -22,4 +22,10 @@
         android:name="com.brittlepins.brittlepins.main.ui.components.ComponentsFragment"
         android:label="@string/title_components"
         tools:layout="@layout/fragment_components" />
+
+    <fragment
+        android:id="@+id/navigation_public"
+        android:name="com.brittlepins.brittlepins.main.ui.public.PublicFragment"
+        android:label="@string/title_public"
+        tools:layout="@layout/fragment_public" />
 </navigation>
