@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/logInFragment"
-        android:name="com.brittlepins.brittlepins.authentication.LogInFragment"
+        android:name="com.brittlepins.brittlepins.authentication.login.LogInFragment"
         android:label="fragment_log_in"
         tools:layout="@layout/fragment_log_in" >
         <action

@@ -13,8 +13,8 @@ import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.brittlepins.brittlepins.authentication.LogInFragment
-import com.brittlepins.brittlepins.authentication.LogInFragmentDirections
+import com.brittlepins.brittlepins.authentication.login.LogInFragment
+import com.brittlepins.brittlepins.authentication.login.LogInFragmentDirections
 import com.brittlepins.brittlepins.authentication.SignUpFragment
 import com.brittlepins.brittlepins.authentication.SignUpFragmentDirections
 import com.brittlepins.brittlepins.main.MainNavActivity

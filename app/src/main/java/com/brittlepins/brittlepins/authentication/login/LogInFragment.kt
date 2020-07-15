@@ -1,4 +1,4 @@
-package com.brittlepins.brittlepins.authentication
+package com.brittlepins.brittlepins.authentication.login
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -23,12 +23,14 @@ class LogInFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         view.findViewById<Button>(R.id.log_in_to_sign_up_button).setOnClickListener {
-            val action = LogInFragmentDirections.actionLogInFragmentToSignUpFragment()
+            val action =
+                LogInFragmentDirections.actionLogInFragmentToSignUpFragment()
             it.findNavController().navigate(action)
         }
 
         view.findViewById<Button>(R.id.log_in_button).setOnClickListener {
-            val action = LogInFragmentDirections.actionLogInFragmentToMainNavActivity()
+            val action =
+                LogInFragmentDirections.actionLogInFragmentToMainNavActivity()
             it.findNavController().navigate(action)
         }
     }
