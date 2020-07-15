@@ -22,4 +22,11 @@ class LogInInstrumentedTest {
         onView(withId(R.id.log_in_form))
             .check(matches(withChild(withHint(resources.getString(R.string.log_in_username_hint)))))
     }
+
+    @Test
+    fun logInScreenHasPasswordEditText() {
+        launchFragmentInContainer<LogInFragment>()
+        onView(withId(R.id.log_in_form))
+            .check(matches(withChild(withHint(resources.getString(R.string.log_in_password_hint)))))
+    }
 }
