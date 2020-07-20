@@ -44,10 +44,15 @@ class LogInFragment : Fragment() {
         }
 
         view.findViewById<Button>(R.id.log_in_button).setOnClickListener {
-            Log.d("LOG_IN_FRAGMENT", logInViewModel.email.value ?: "No email")
-            val action =
-                LogInFragmentDirections.actionLogInFragmentToMainNavActivity()
-            it.findNavController().navigate(action)
+            logInWith(it, logInViewModel.email.value)
         }
+    }
+
+    fun logInWith(view: View, email: String?) {
+        Log.d("LOG_IN_FRAGMENT", email ?: "No email")
+
+        val action =
+            LogInFragmentDirections.actionLogInFragmentToMainNavActivity()
+        view.findNavController().navigate(action)
     }
 }
