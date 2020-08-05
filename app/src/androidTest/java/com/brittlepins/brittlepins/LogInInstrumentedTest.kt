@@ -25,6 +25,8 @@ class LogInInstrumentedTest {
     private val resources: Resources =
         InstrumentationRegistry.getInstrumentation().targetContext.resources
 
+    private val context = InstrumentationRegistry.getInstrumentation().targetContext
+
     private lateinit var logIn: LogIn
 
     @Before
@@ -53,12 +55,12 @@ class LogInInstrumentedTest {
         val slot = slot<LogIn>()
 
         every {
-            AuthServices.logIn(capture(slot))
+            AuthServices.logIn(context, "url", capture(slot))
         } just Runs
 
         enterDataAndClickLogIn()
 
-        verify { AuthServices.logIn(slot.captured) }
+        verify { AuthServices.logIn(context, "url", slot.captured) }
     }
 
     @Test
@@ -67,7 +69,7 @@ class LogInInstrumentedTest {
         val slot = slot<LogIn>()
 
         every {
-            AuthServices.logIn(capture(slot))
+            AuthServices.logIn(context, "url", capture(slot))
         } just Runs
 
         enterDataAndClickLogIn()
@@ -81,7 +83,7 @@ class LogInInstrumentedTest {
         val slot = slot<LogIn>()
 
         every {
-            AuthServices.logIn(capture(slot))
+            AuthServices.logIn(context, "url", capture(slot))
         } just Runs
 
         enterDataAndClickLogIn()

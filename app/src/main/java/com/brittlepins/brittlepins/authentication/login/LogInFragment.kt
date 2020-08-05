@@ -9,6 +9,7 @@ import android.widget.Button
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
+import com.brittlepins.brittlepins.BuildConfig
 import com.brittlepins.brittlepins.R
 import com.brittlepins.brittlepins.databinding.FragmentLogInBinding
 import com.brittlepins.brittlepins.network.AuthServices
@@ -49,7 +50,7 @@ class LogInFragment : Fragment() {
     }
 
     fun logInWith(view: View, logIn: LogIn) {
-        AuthServices.logIn(logIn)
+        AuthServices.logIn(requireContext(), BuildConfig.BASE_URL, logIn)
 
         val action =
             LogInFragmentDirections.actionLogInFragmentToMainNavActivity()

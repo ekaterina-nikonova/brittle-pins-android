@@ -16,6 +16,8 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField "String", 'BASE_URL', '"https://api.brittle-pins.com"'
     }
 
     buildFeatures {
@@ -76,4 +78,18 @@ dependencies {
      */
     testImplementation "io.mockk:mockk:$mockk_version"
     androidTestImplementation "io.mockk:mockk-android:$mockk_version"
+
+    /**
+     * Retrofit
+     */
+    def okHttpVersion = '4.7.2'
+    implementation 'com.squareup.retrofit2:retrofit:2.5.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.5.0'
+    implementation "com.squareup.okhttp3:okhttp:$okHttpVersion"
+    androidTestImplementation "com.squareup.okhttp3:mockwebserver:$okHttpVersion"
+
+    /**
+     * Persistent Cookie Jar
+     */
+    implementation 'com.github.franmontiel:PersistentCookieJar:v1.0.1'
 }
