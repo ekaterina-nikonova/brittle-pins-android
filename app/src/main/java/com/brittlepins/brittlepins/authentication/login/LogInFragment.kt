@@ -44,7 +44,7 @@ class LogInFragment : Fragment() {
         }
 
         view.findViewById<Button>(R.id.log_in_button).setOnClickListener {
-            logInWith(it, LogIn(logInViewModel.email.value ?: "", ""))
+            logInWith(it, LogIn(logInViewModel.email.value ?: "", logInViewModel.password.value ?: ""))
         }
     }
 
