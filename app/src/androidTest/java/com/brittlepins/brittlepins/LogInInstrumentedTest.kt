@@ -25,8 +25,6 @@ class LogInInstrumentedTest {
     private val resources: Resources =
         InstrumentationRegistry.getInstrumentation().targetContext.resources
 
-    private val context = InstrumentationRegistry.getInstrumentation().targetContext
-
     private lateinit var logIn: LogIn
 
     @Before
@@ -52,43 +50,39 @@ class LogInInstrumentedTest {
     @Test
     fun logInScreenRunsLogInFromAuthServices() {
         mockkObject(AuthServices)
-        val slot = slot<LogIn>()
-
-        every {
-            AuthServices.logIn(context, "url", capture(slot))
-        } just Runs
 
         enterDataAndClickLogIn()
 
-        verify { AuthServices.logIn(context, "url", slot.captured) }
+        verify { AuthServices.logIn(context = any(), baseUrl = any(), logIn = ofType(LogIn::class)) }
     }
 
     @Test
     fun logInScreenCapturesEmail() {
         mockkObject(AuthServices)
-        val slot = slot<LogIn>()
-
-        every {
-            AuthServices.logIn(context, "url", capture(slot))
-        } just Runs
 
         enterDataAndClickLogIn()
 
-        assertThat(slot.captured.email, equalTo(logIn.email))
+        // TODO: verify that AuthServices.logIn() is called with logIn that has correct email
+        verify {
+            AuthServices.logIn(
+                context = any(),
+                baseUrl = any(),
+                logIn = match { it.email == logIn.email })
+        }
     }
 
     @Test
     fun logInScreenCapturesPassword() {
         mockkObject(AuthServices)
-        val slot = slot<LogIn>()
-
-        every {
-            AuthServices.logIn(context, "url", capture(slot))
-        } just Runs
 
         enterDataAndClickLogIn()
 
-        assertThat(slot.captured.password, equalTo(logIn.password))
+        verify {
+            AuthServices.logIn(
+                context = any(),
+                baseUrl = any(),
+                logIn = match { it.password == logIn.password })
+        }
     }
 
     private fun enterDataAndClickLogIn() {
