@@ -1,4 +1,4 @@
-package com.brittlepins.brittlepins.authentication
+package com.brittlepins.brittlepins.db
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

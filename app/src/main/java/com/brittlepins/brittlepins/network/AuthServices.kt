@@ -2,7 +2,7 @@ package com.brittlepins.brittlepins.network
 
 import android.content.Context
 import android.util.Log
-import com.brittlepins.brittlepins.authentication.User
+import com.brittlepins.brittlepins.db.User
 import com.brittlepins.brittlepins.authentication.login.LogIn
 import com.franmontiel.persistentcookiejar.PersistentCookieJar
 import com.franmontiel.persistentcookiejar.cache.SetCookieCache
