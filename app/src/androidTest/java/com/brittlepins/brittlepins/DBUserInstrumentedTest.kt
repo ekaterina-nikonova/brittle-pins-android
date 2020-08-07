@@ -7,8 +7,11 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.brittlepins.brittlepins.db.AppDatabase
 import com.brittlepins.brittlepins.db.User
 import com.brittlepins.brittlepins.db.UserDAO
+import org.hamcrest.CoreMatchers.equalTo
+import org.hamcrest.MatcherAssert.assertThat
 import org.junit.After
 import org.junit.Before
+import org.junit.Test
 import org.junit.runner.RunWith
 import java.io.IOException
 
@@ -28,6 +31,14 @@ class DBUserInstrumentedTest {
     @Throws(IOException::class)
     fun teardown() {
         closeDB()
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun readsAndWritesUser() {
+        userDAO.insert(user)
+        val userFromDB = userDAO.getUser(user.id)
+        assertThat(userFromDB.id, equalTo(user.id))
     }
 
     private fun createDB() {
