@@ -2,12 +2,14 @@ package com.brittlepins.brittlepins
 
 import android.content.Context
 import androidx.room.Room
+import androidx.room.RoomDatabase
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import androidx.test.platform.app.InstrumentationRegistry
 import com.brittlepins.brittlepins.db.AppDatabase
 import com.brittlepins.brittlepins.db.User
 import com.brittlepins.brittlepins.db.UserDAO
-import org.hamcrest.CoreMatchers.equalTo
+import org.hamcrest.CoreMatchers.*
 import org.hamcrest.MatcherAssert.assertThat
 import org.junit.After
 import org.junit.Before
@@ -21,6 +23,8 @@ class DBUserInstrumentedTest {
     private lateinit var userDAO: UserDAO
     private lateinit var user: User
 
+    private val context = InstrumentationRegistry.getInstrumentation().targetContext
+
     @Before
     fun setup() {
         createDB()
@@ -31,6 +35,11 @@ class DBUserInstrumentedTest {
     @Throws(IOException::class)
     fun teardown() {
         closeDB()
+    }
+
+    @Test
+    fun getInstanceReturnsDB() {
+        assertThat(AppDatabase.getInstance(context), instanceOf(RoomDatabase::class.java))
     }
 
     @Test
