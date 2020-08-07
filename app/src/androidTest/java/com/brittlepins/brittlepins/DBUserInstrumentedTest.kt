@@ -5,22 +5,27 @@ import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.brittlepins.brittlepins.db.AppDatabase
+import com.brittlepins.brittlepins.db.User
 import com.brittlepins.brittlepins.db.UserDAO
 import org.junit.After
 import org.junit.Before
 import org.junit.runner.RunWith
+import java.io.IOException
 
 @RunWith(AndroidJUnit4::class)
 class DBUserInstrumentedTest {
     private lateinit var db: AppDatabase
     private lateinit var userDAO: UserDAO
+    private lateinit var user: User
 
     @Before
     fun setup() {
         createDB()
+        user = DBTestUtils.createUser()
     }
 
     @After
+    @Throws(IOException::class)
     fun teardown() {
         closeDB()
     }
