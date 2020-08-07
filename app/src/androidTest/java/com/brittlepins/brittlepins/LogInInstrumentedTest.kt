@@ -62,7 +62,6 @@ class LogInInstrumentedTest {
 
         enterDataAndClickLogIn()
 
-        // TODO: verify that AuthServices.logIn() is called with logIn that has correct email
         verify {
             AuthServices.logIn(
                 context = any(),
