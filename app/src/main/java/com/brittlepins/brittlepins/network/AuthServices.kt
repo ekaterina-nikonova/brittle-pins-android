@@ -2,6 +2,7 @@ package com.brittlepins.brittlepins.network
 
 import android.content.Context
 import android.util.Log
+import com.brittlepins.brittlepins.BuildConfig
 import com.brittlepins.brittlepins.db.User
 import com.brittlepins.brittlepins.authentication.login.LogIn
 import com.franmontiel.persistentcookiejar.PersistentCookieJar
@@ -22,19 +23,19 @@ class AuthServices {
         private var CLIENT_INSTANCE: UserClient? = null
         lateinit var jar: PersistentCookieJar
 
-        fun getClient(context: Context, url: String): UserClient {
+        fun getClient(context: Context): UserClient {
             synchronized(this) {
                 var instance = CLIENT_INSTANCE
 
                 if (instance == null) {
-                    instance = buildClient(context, url)
+                    instance = buildClient(context)
                 }
                 return instance
             }
         }
 
-        fun logIn(context: Context, baseUrl: String, logIn: LogIn) {
-            val call = getClient(context, baseUrl).signIn(logIn)
+        fun logIn(context: Context, logInData: LogIn) {
+            val call = getClient(context).signIn(logInData)
             call.enqueue(object: Callback<User> {
                 override fun onFailure(call: Call<User>, t: Throwable) {
                     Log.d(TAG, "Call failed: $call")
@@ -64,7 +65,7 @@ class AuthServices {
             })
         }
 
-        private fun buildClient(context: Context, url: String) : UserClient {
+        private fun buildClient(context: Context) : UserClient {
             val prefs = context
                 .getSharedPreferences("cookie_prefs", Context.MODE_PRIVATE)
 
@@ -76,8 +77,7 @@ class AuthServices {
             val client = OkHttpClient.Builder().cookieJar(jar).build()
 
             val retrofit = Retrofit.Builder().apply {
-                // replaced BuildConfig.BASE_URL
-                baseUrl("$url/api/v1/")
+                baseUrl("${BuildConfig.BASE_URL}/api/v1/")
                 client(client)
                 addConverterFactory(GsonConverterFactory.create())
             }.build()

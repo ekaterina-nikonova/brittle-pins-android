@@ -15,7 +15,6 @@ import com.brittlepins.brittlepins.authentication.login.LogIn
 import com.brittlepins.brittlepins.authentication.login.LogInFragment
 import com.brittlepins.brittlepins.network.AuthServices
 import io.mockk.*
-import org.hamcrest.CoreMatchers.equalTo
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -53,7 +52,7 @@ class LogInInstrumentedTest {
 
         enterDataAndClickLogIn()
 
-        verify { AuthServices.logIn(context = any(), baseUrl = any(), logIn = ofType(LogIn::class)) }
+        verify { AuthServices.logIn(context = any(), logInData = ofType(LogIn::class)) }
     }
 
     @Test
@@ -65,8 +64,7 @@ class LogInInstrumentedTest {
         verify {
             AuthServices.logIn(
                 context = any(),
-                baseUrl = any(),
-                logIn = match { it.email == logIn.email })
+                logInData = match { it.email == logIn.email })
         }
     }
 
@@ -79,8 +77,7 @@ class LogInInstrumentedTest {
         verify {
             AuthServices.logIn(
                 context = any(),
-                baseUrl = any(),
-                logIn = match { it.password == logIn.password })
+                logInData = match { it.password == logIn.password })
         }
     }
 
