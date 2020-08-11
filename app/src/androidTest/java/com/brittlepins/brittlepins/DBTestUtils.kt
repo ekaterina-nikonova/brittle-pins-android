@@ -11,8 +11,6 @@ object DBTestUtils {
         id = UUID.randomUUID().toString(),
         email = "john@doe.com",
         username = "john-doe",
-        role = USER_ROLES.user.toString(),
-        token = "",
-        csrf = ""
+        role = USER_ROLES.user.toString()
     )
 }

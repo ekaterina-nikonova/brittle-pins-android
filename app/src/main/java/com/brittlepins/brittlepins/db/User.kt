@@ -13,7 +13,5 @@ data class User(
     @PrimaryKey val id: String = UUID.randomUUID().toString(),
     val email: String,
     val username: String,
-    val role: String,
-    val token: String,
-    val csrf: String
+    val role: String
 )

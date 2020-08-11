@@ -3,7 +3,6 @@ package com.brittlepins.brittlepins.network
 import android.content.Context
 import android.util.Log
 import com.brittlepins.brittlepins.BuildConfig
-import com.brittlepins.brittlepins.db.User
 import com.brittlepins.brittlepins.authentication.login.LogIn
 import com.franmontiel.persistentcookiejar.PersistentCookieJar
 import com.franmontiel.persistentcookiejar.cache.SetCookieCache
@@ -36,21 +35,21 @@ class AuthServices {
 
         fun logIn(context: Context, logInData: LogIn) {
             val call = getClient(context).signIn(logInData)
-            call.enqueue(object: Callback<User> {
-                override fun onFailure(call: Call<User>, t: Throwable) {
+            call.enqueue(object: Callback<AuthResponse> {
+                override fun onFailure(call: Call<AuthResponse>, t: Throwable) {
                     Log.d(TAG, "Call failed: $call")
                     reset()
                     t.printStackTrace()
                     // TODO("Show snackbar (write to LiveData?)")
                 }
 
-                override fun onResponse(call: Call<User>, response: Response<User>) {
+                override fun onResponse(call: Call<AuthResponse>, response: Response<AuthResponse>) {
                     if (response.isSuccessful) {
                         Log.d(TAG, "Response successful: ${response.message()}")
-                        val token = response.body()?.csrf
+                        val csrfToken = response.body()?.csrf
                         context.getSharedPreferences("cookie_prefs", Context.MODE_PRIVATE)
                             .edit()
-                            .putString("csrf", token)
+                            .putString("csrf", csrfToken.toString())
                             .apply()
 
                         // TODO("Navigate to Main (write to LiveData?)")
