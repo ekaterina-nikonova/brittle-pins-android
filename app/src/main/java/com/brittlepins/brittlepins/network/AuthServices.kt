@@ -42,7 +42,7 @@ class AuthServices {
             call.enqueue(object: Callback<AuthResponse> {
                 override fun onFailure(call: Call<AuthResponse>, t: Throwable) {
                     Log.d(TAG, "Call failed: $call")
-                    reset()
+                    reset(context)
                     t.printStackTrace()
                     // TODO("Show snackbar (write to LiveData?)")
                 }
@@ -62,11 +62,15 @@ class AuthServices {
                     } else {
                         Log.d(TAG, "Response not successful: ${response.message()}")
                         Log.d(TAG, "Response not successful: ${response.errorBody()?.string()}")
-                        reset()
+                        reset(context)
                         // TODO("Show snackbar (write to LiveData?)")
                     }
                 }
             })
+        }
+
+        fun logOut(context: Context) {
+            reset(context)
         }
 
         fun getMe(context: Context) {
@@ -129,6 +133,12 @@ class AuthServices {
             return retrofit.create(UserClient::class.java)
         }
 
-        private fun reset() = jar.clear()
+        private fun reset(context: Context) {
+            jar.clear()
+            val db = AppDatabase.getInstance(context)
+            GlobalScope.launch {
+                db.clearAllTables()
+            }
+        }
     }
 }
