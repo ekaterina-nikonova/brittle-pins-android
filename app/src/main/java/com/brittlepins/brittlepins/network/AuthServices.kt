@@ -4,9 +4,13 @@ import android.content.Context
 import android.util.Log
 import com.brittlepins.brittlepins.BuildConfig
 import com.brittlepins.brittlepins.authentication.login.LogIn
+import com.brittlepins.brittlepins.db.AppDatabase
+import com.brittlepins.brittlepins.db.User
 import com.franmontiel.persistentcookiejar.PersistentCookieJar
 import com.franmontiel.persistentcookiejar.cache.SetCookieCache
 import com.franmontiel.persistentcookiejar.persistence.SharedPrefsCookiePersistor
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import okhttp3.OkHttpClient
 import retrofit2.Call
 import retrofit2.Callback
@@ -52,16 +56,48 @@ class AuthServices {
                             .putString("csrf", csrfToken.toString())
                             .apply()
 
+                        getMe(context)
+
                         // TODO("Navigate to Main (write to LiveData?)")
                     } else {
                         Log.d(TAG, "Response not successful: ${response.message()}")
-                        // response.errorBody()?.string() -> {"error":"No invitation found"}
                         Log.d(TAG, "Response not successful: ${response.errorBody()?.string()}")
                         reset()
                         // TODO("Show snackbar (write to LiveData?)")
                     }
                 }
             })
+        }
+
+        fun getMe(context: Context) {
+            val call = getClient(context).getMe()
+            call.enqueue(object: Callback<User> {
+                override fun onFailure(call: Call<User>, t: Throwable) {
+                    // TODO("Show snackbar: failed getting me")
+                }
+
+                override fun onResponse(call: Call<User>, response: Response<User>) {
+                    Log.d(TAG, "Got response: ${response.message()}")
+
+                    if (response.isSuccessful) {
+                        val db = AppDatabase.getInstance(context)
+                        saveTo(db, response.body())
+                    } else {
+                        Log.d(TAG, "Error getting me: ${response.errorBody()}")
+                        // TODO("Show snackbar: failed getting me, response not successful")
+                    }
+                }
+            })
+        }
+
+        private fun saveTo(db: AppDatabase, user: User?) {
+            if (user != null) {
+                GlobalScope.launch {
+                    db.userDAO.insert(user)
+                }
+            } else {
+                // TODO ("Snackbar: No user in response")
+            }
         }
 
         private fun buildClient(context: Context) : UserClient {
